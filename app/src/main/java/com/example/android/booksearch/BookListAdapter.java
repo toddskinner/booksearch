@@ -54,11 +54,11 @@ public class BookListAdapter extends ArrayAdapter<Book> {
         Picasso.with(mCon).load(currentBook.getBookCover()).into(bookCoverImageView);
 
 
-        TextView locationOffsetTextView = (TextView) convertView.findViewById(R.id.locationOffset);
+        TextView locationOffsetTextView = (TextView) convertView.findViewById(R.id.bookTitle);
         String locationOffset = currentBook.getTitle();
         locationOffsetTextView.setText(locationOffset);
 
-        TextView primaryLocationTextView = (TextView) convertView.findViewById(R.id.primaryLocation);
+        TextView primaryLocationTextView = (TextView) convertView.findViewById(R.id.author);
         String primaryLocation = currentBook.getAuthor();
         primaryLocationTextView.setText(primaryLocation);
 

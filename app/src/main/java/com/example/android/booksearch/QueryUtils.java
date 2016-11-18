@@ -25,7 +25,7 @@ import java.util.List;
 import static com.example.android.booksearch.BookActivity.LOG_TAG;
 
 /**
- * Helper methods related to requesting and receiving earthquake data from USGS.
+ * Helper methods related to requesting and receiving book data from Google Books API.
  */
 public final class QueryUtils {
 

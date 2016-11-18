@@ -1,5 +1,6 @@
 package com.example.android.booksearch;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,13 +33,18 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextView noConnectionTextView;
     private ProgressBar progressBar;
 
-    /** URL for earthquake data from the USGS dataset */
-    private static final String GOOGLE_BOOKS_API_REQUEST_URL =
+    /** URL for book data from the Google Books API */
+    private String GOOGLE_BOOKS_API_REQUEST_URL =
             "https://www.googleapis.com/books/v1/volumes?q=finance&maxResults=10";
 
+    /** to be combined with the search term provided by the editText box */
+    private static final String GOOGLE_BOOKS_REQUEST_URL_PART1 =
+            "https://www.googleapis.com/books/v1/volumes?q=";
+    private static final String GOOGLE_BOOKS_REQUEST_URL_PART2 =
+            "&maxResults=10";
+
     /**
-     * Constant value for the earthquake loader ID. We can choose any integer.
-     * This really only comes into play if you're using multiple loaders.
+     * Constant value for the loader ID.
      */
     private static final int BOOK_LOADER_ID = 1;
 
@@ -78,16 +85,28 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
 
         listView.setAdapter(adapter);
 
+        Button searchButton = (Button) findViewById(R.id.search_button);
+        searchButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                TextView searchText = (TextView) findViewById(R.id.search_editText);
+                String searchTerm = searchText.getText().toString();
+                GOOGLE_BOOKS_API_REQUEST_URL = GOOGLE_BOOKS_REQUEST_URL_PART1 + searchTerm + GOOGLE_BOOKS_REQUEST_URL_PART2;
+                getLoaderManager().restartLoader(BOOK_LOADER_ID, null, BookActivity.this);
+                searchText.setText("");
+            }
+        });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l){
-                // Find the current earthquake that was clicked on
+                // Find the current book that was clicked on
                 Book currentBook = adapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri earthquakeUri = Uri.parse(currentBook.getInfoLink());
 
-                // Create a new intent to view the earthquake URI
+                // Create a new intent to view the book URI
                 Intent websiteIntent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
 
                 // Send the intent to launch a new activity
