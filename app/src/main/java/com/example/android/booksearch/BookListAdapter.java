@@ -26,10 +26,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-/**
- * Created by toddskinner on 11/4/16.
- */
-
 public class BookListAdapter extends ArrayAdapter<Book> {
 
     private Context mCon;
@@ -50,7 +46,7 @@ public class BookListAdapter extends ArrayAdapter<Book> {
 
         ImageView bookCoverImageView = (ImageView) convertView.findViewById(R.id.book_cover);
 
-        //found by googling and stackoverflow
+        //Found by googling and stackoverflow. Realize is a library but not related to core functionality.
         Picasso.with(mCon).load(currentBook.getBookCover()).into(bookCoverImageView);
 
 

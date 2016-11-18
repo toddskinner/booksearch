@@ -32,10 +32,11 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextView emptyTextView;
     private TextView noConnectionTextView;
     private ProgressBar progressBar;
+    private int counter = 0;
 
     /** URL for book data from the Google Books API */
     private String GOOGLE_BOOKS_API_REQUEST_URL =
-            "https://www.googleapis.com/books/v1/volumes?q=finance&maxResults=10";
+            "";
 
     /** to be combined with the search term provided by the editText box */
     private static final String GOOGLE_BOOKS_REQUEST_URL_PART1 =
@@ -89,6 +90,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
         searchButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                counter++;
                 TextView searchText = (TextView) findViewById(R.id.search_editText);
                 String searchTerm = searchText.getText().toString();
                 GOOGLE_BOOKS_API_REQUEST_URL = GOOGLE_BOOKS_REQUEST_URL_PART1 + searchTerm + GOOGLE_BOOKS_REQUEST_URL_PART2;
@@ -130,7 +132,9 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
             adapter.addAll(data);
             Log.e("onloadfinished","Run onLoadFinished");
         }
-        emptyTextView.setText(R.string.empty_list);
+        if(counter != 0) {
+            emptyTextView.setText(R.string.empty_list);
+        }
     }
 
     @Override
