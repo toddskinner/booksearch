@@ -3,4 +3,6 @@
     <string name="app_name">Book Search</string>
     <string name="empty_list">No books found</string>
     <string name="no_connection_message">No internet connection found</string>
+    <string name="search_question">What Do You Want To Read About?</string>
+    <string name="find_books">Find Me Some Books!</string>
 </resources>

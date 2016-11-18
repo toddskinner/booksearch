@@ -11,4 +11,8 @@
 
     <!-- Text color for the primary location of the earthquake in the list item -->
     <color name="textColorAuthor">#2B3D4D</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="border_color">#9FA8DA</color>
 </resources>
